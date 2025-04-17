@@ -1,0 +1,1234 @@
+{
+    "vendors": {
+      "Cisco": {
+        "routers": {
+          "setup": [
+            {
+              "name": "Set Hostname",
+              "description": "Assign a unique hostname to the device for identification.",
+              "command": "configure terminal\nhostname [DeviceName]"
+            },
+            {
+              "name": "Setup an Interface",
+              "description": "Step-by-step process to configure an interface with an IP address.",
+              "command": "1) Enter configuration mode:\n   configure terminal\n2) Choose the interface:\n   interface GigabitEthernet0/0\n3) Assign IP address:\n   ip address 192.168.1.1 255.255.255.0\n4) Enable the interface:\n   no shutdown\n5) Exit configuration mode:\n   end"
+            },
+            {
+              "name": "Setup a VLAN (on a Layer 3 interface)",
+              "description": "Create and configure a VLAN interface on a Cisco router.",
+              "command": "1) Enter configuration mode:\n   configure terminal\n2) Create the VLAN interface:\n   interface vlan [VLAN_ID]\n3) Assign IP address:\n   ip address 10.10.10.1 255.255.255.0\n4) Enable the VLAN interface:\n   no shutdown\n5) Exit configuration mode:\n   end"
+            },
+            {
+              "name": "Configure Static Routing",
+              "description": "Set a static route for routing packets to a specific network.",
+              "command": "1) Enter configuration mode:\n   configure terminal\n2) Define the route:\n   ip route [destination network] [subnet mask] [next hop IP]\n3) Exit configuration mode:\n   end"
+            },
+            {
+              "name": "Configure DHCP Server",
+              "description": "Set up a DHCP server to dynamically assign IP addresses.",
+              "command": "1) Enter configuration mode:\n   configure terminal\n2) Exclude addresses from DHCP pool:\n   ip dhcp excluded-address [start-ip] [end-ip]\n3) Create a DHCP pool:\n   ip dhcp pool [pool-name]\n4) Define network and subnet mask:\n   network [network address] [subnet mask]\n5) Define default gateway:\n   default-router [default gateway IP]\n6) Provide DNS server:\n   dns-server [DNS IP address]\n7) Exit configuration mode:\n   end"
+            },
+            {
+              "name": "Configure NTP (Network Time Protocol)",
+              "description": "Synchronize time with an NTP server.",
+              "command": "1) Enter configuration mode:\n   configure terminal\n2) Define NTP server:\n   ntp server [NTP server IP]\n3) Verify NTP status:\n   show ntp status\n4) Exit configuration mode:\n   end"
+            },
+            {
+              "name": "Configure Default Gateway",
+              "description": "Set a default route for traffic with no specific route.",
+              "command": "1) Enter configuration mode:\n   configure terminal\n2) Set default route:\n   ip route 0.0.0.0 0.0.0.0 [next hop IP]\n3) Exit configuration mode:\n   end"
+            },
+            {
+              "name": "Setup EIGRP (Enhanced Interior Gateway Routing Protocol)",
+              "description": "Enable EIGRP routing protocol for dynamic routing.",
+              "command": "1) Enter configuration mode:\n   configure terminal\n2) Enable EIGRP and specify AS number:\n   router eigrp [AS number]\n3) Define the network to advertise:\n   network [network address] [wildcard mask]\n4) Exit configuration mode:\n   end"
+            },
+            {
+              "name": "Setup OSPF (Open Shortest Path First)",
+              "description": "Enable OSPF routing protocol for dynamic routing.",
+              "command": "1) Enter configuration mode:\n   configure terminal\n2) Enable OSPF:\n   router ospf [Process ID]\n3) Define network to advertise:\n   network [network address] [wildcard mask] area [area number]\n4) Exit configuration mode:\n   end"
+            }
+          ],
+          "security": {
+            "basic": [
+              {
+                "name": "Enable SSH",
+                "description": "Enable Secure Shell (SSH) for secure remote access and disable Telnet.",
+                "command": "1) Enter configuration mode:\n   configure terminal\n2) Generate RSA keys:\n   crypto key generate rsa\n3) Enable SSH:\n   ip ssh version 2\n4) Set VTY lines to only accept SSH:\n   line vty 0 4\n   transport input ssh\n5) Set login method:\n   login local\n6) Exit configuration mode:\n   end"
+              },
+              {
+                "name": "Setup AAA Authentication",
+                "description": "Enable AAA for user authentication, authorization, and accounting.",
+                "command": "1) Enter configuration mode:\n   configure terminal\n2) Enable AAA:\n   aaa new-model\n3) Create local user:\n   username [user] secret [password]\n4) Apply authentication to lines:\n   line vty 0 4\n   login authentication default\n5) Exit configuration mode:\n   end"
+              },
+              {
+                "name": "Configure Access Lists (ACLs)",
+                "description": "Create and apply a standard or extended access list.",
+                "command": "1) Enter configuration mode:\n   configure terminal\n2) Create access list:\n   access-list [number] permit/deny [IP/any] [wildcard mask]\n3) Apply to interface:\n   interface [interface]\n   ip access-group [ACL number] [in/out]\n4) Exit configuration mode:\n   end"
+              },
+              {
+                "name": "Set Enable Password",
+                "description": "Set a password for privileged EXEC mode.",
+                "command": "enable secret [Password]"
+              },
+              {
+                "name": "Encrypt Passwords",
+                "description": "Encrypt all passwords stored in the configuration file.",
+                "command": "service password-encryption"
+              },
+              {
+                "name": "Disable Unused Services",
+                "description": "Disable unnecessary services to reduce attack surface.",
+                "command": "no ip http server\nno ip http secure-server"
+              },
+              {
+                "name": "Configure Login Banner",
+                "description": "Set a security message for unauthorized access attempts.",
+                "command": "banner motd #Unauthorized access prohibited#"
+              }
+            ],
+            "advanced": [
+              {
+                "name": "Enable CoPP",
+                "description": "Control Plane Policing (CoPP) protects the control plane from excessive traffic.",
+                "command": "policy-map [PolicyName]\nclass [ClassName]\npolice [Rate] [Burst] conform-action transmit exceed-action drop"
+              },
+              {
+                "name": "Configure AAA Authentication",
+                "description": "Enable Authentication, Authorization, and Accounting (AAA) for user access.",
+                "command": "aaa new-model\naaa authentication login default local"
+              },
+              {
+                "name": "Enable Logging",
+                "description": "Configure logging to monitor device activity.",
+                "command": "logging buffered 4096\nlogging console warnings"
+              },
+              {
+                "name": "Enable Port Security",
+                "description": "Restrict port access based on MAC address.",
+                "command": "interface [InterfaceName]\nswitchport port-security\nswitchport port-security maximum [Number]\nswitchport port-security violation restrict"
+              },
+              {
+                "name": "Implement VLAN Segmentation",
+                "description": "Segment the network using VLANs to improve security.",
+                "command": "vlan [VLAN_ID]\nname [VLAN_Name]\ninterface [InterfaceName]\nswitchport mode access\nswitchport access vlan [VLAN_ID]"
+              },
+              {
+                "name": "Enable SNMPv3",
+                "description": "Secure network monitoring using SNMPv3.",
+                "command": "snmp-server group [GroupName] v3 priv"
+              },
+              {
+                "name": "Secure BGP Routing",
+                "description": "Enable BGP authentication to protect against route hijacking.",
+                "command": "router bgp [ASN]\nneighbor [Neighbor_IP] remote-as [Remote_ASN]\nneighbor [Neighbor_IP] password [Password]"
+              },
+              {
+                "name": "TACACS+ Integration",
+                "description": "Configure TACACS+ for centralized authentication and authorization.",
+                "command": "aaa new-model\naaa authentication login default group tacacs+ local\ntacacs-server host [TACACS_IP] key [SecretKey]"
+              },
+              {
+                "name": "Microsegmentation (VLAN Isolation)",
+                "description": "Isolate VLANs to enhance security.",
+                "command": "switchport protected"
+              },
+              {
+                "name": "Multi-Factor Authentication (MFA)",
+                "description": "Enable MFA for administrative access.",
+                "command": "aaa authentication login default group radius local"
+              },
+              {
+                "name": "Check Open Ports",
+                "description": "Display open ports and active interfaces.",
+                "command": "show ip interface brief | include up"
+              },
+              {
+                "name": "Failed Logins Monitoring",
+                "description": "Monitor failed login attempts.",
+                "command": "show login failures"
+              },
+              {
+                "name": "Detect Brute Force Attacks",
+                "description": "Enable logging for potential brute-force attacks.",
+                "command": "archive log config logging enable"
+              },
+              {
+                "name": "RBAC (Role-Based Access Control)",
+                "description": "Restrict access based on user roles.",
+                "command": "username [AdminUser] privilege 15 password [SecurePass]"
+              },
+              {
+                "name": "Stricter Logging",
+                "description": "Enable logging for debugging purposes.",
+                "command": "logging trap debugging"
+              }
+            ]
+          }
+        },
+        "switches": {
+          "setup": [
+            {
+              "name": "Configure Access Control Lists (ACLs)",
+              "description": "Restrict traffic based on IP addresses.",
+              "command": "access-list [Number] permit [Protocol] [Source] [Destination]\nip access-group [Number] in"
+            },
+            {
+              "name": "Configure VLAN",
+              "description": "Create and configure VLANs for network segmentation.",
+              "command": "1) Enter configuration mode:\n   configure terminal\n2) Create VLAN:\n   vlan [VLAN_ID]\n3) Name the VLAN:\n   name [VLAN_NAME]\n4) Exit VLAN configuration:\n   exit\n5) Assign VLAN to interface:\n   interface [Interface]\n   switchport mode access\n   switchport access vlan [VLAN_ID]\n6) Enable interface:\n   no shutdown\n7) Exit configuration mode:\n   end"
+            },
+            {
+              "name": "Configure Trunk Ports",
+              "description": "Set up trunk ports for VLAN tagging between switches.",
+              "command": "1) Enter configuration mode:\n   configure terminal\n2) Select the interface:\n   interface [Trunk_Interface]\n3) Set mode to trunk:\n   switchport mode trunk\n4) Specify allowed VLANs (if needed):\n   switchport trunk allowed vlan [VLAN_IDs]\n5) Enable interface:\n   no shutdown\n6) Exit configuration mode:\n   end"
+            },
+            {
+              "name": "Set Management IP Address",
+              "description": "Assign an IP address to the switch for management access.",
+              "command": "1) Enter configuration mode:\n   configure terminal\n2) Select VLAN interface:\n   interface vlan [VLAN_ID]\n3) Assign IP address:\n   ip address [IP_ADDRESS] [SUBNET_MASK]\n4) Enable VLAN interface:\n   no shutdown\n5) Exit configuration mode:\n   end"
+            },
+            {
+              "name": "Enable Spanning Tree Protocol (STP)",
+              "description": "Prevent Layer 2 loops by configuring Spanning Tree Protocol.",
+              "command": "1) Enter configuration mode:\n   configure terminal\n2) Enable STP globally (if not already enabled):\n   spanning-tree mode [pvst | rapid-pvst | mst]\n3) Exit configuration mode:\n   end"
+            },
+            {
+              "name": "Port Security Configuration",
+              "description": "Limit the number of devices on a port and configure MAC address filtering.",
+              "command": "1) Enter configuration mode:\n   configure terminal\n2) Select interface:\n   interface [Interface]\n3) Set port security:\n   switchport port-security\n4) Define maximum number of devices:\n   switchport port-security maximum [Number]\n5) Set violation action:\n   switchport port-security violation [protect | restrict | shutdown]\n6) Optionally, set static MAC address:\n   switchport port-security mac-address [MAC_ADDRESS]\n7) Exit configuration mode:\n   end"
+            },
+            {
+              "name": "Assign VLAN to Interface",
+              "description": "Assign a VLAN to a specific port for network segmentation.",
+              "command": "1) Enter configuration mode:\n   configure terminal\n2) Select the interface:\n   interface [Interface]\n3) Set the interface to access mode:\n   switchport mode access\n4) Assign VLAN:\n   switchport access vlan [VLAN_ID]\n5) Enable the interface:\n   no shutdown\n6) Exit configuration mode:\n   end"
+            },
+            {
+              "name": "Configure EtherChannel",
+              "description": "Combine multiple physical links to increase bandwidth and redundancy.",
+              "command": "1) Enter configuration mode:\n   configure terminal\n2) Select the interface range:\n   interface range [Interface1, Interface2]\n3) Enable EtherChannel:\n   channel-group [Number] mode [active | passive | on]\n4) Exit configuration mode:\n   end"
+            },
+            {
+              "name": "Backup and Save Configuration",
+              "description": "Save the current configuration to startup-config for persistence.",
+              "command": "1) Save running configuration:\n   write memory\n   OR\n   copy running-config startup-config"
+            }
+          ],
+          "security": {
+            "basic": [
+              {
+                "name": "Enable SSH for Management",
+                "description": "Enable SSH for remote management and disable Telnet.",
+                "command": "1) Enter configuration mode:\n   configure terminal\n2) Generate RSA keys:\n   crypto key generate rsa\n3) Enable SSH:\n   ip ssh version 2\n4) Set VTY lines to only accept SSH:\n   line vty 0 4\n   transport input ssh\n5) Set login method:\n   login local\n6) Exit configuration mode:\n   end"
+              },
+              {
+                "name": "Configure CDP (Cisco Discovery Protocol)",
+                "description": "Enable CDP for discovering directly connected Cisco devices.",
+                "command": "1) Enter configuration mode:\n   configure terminal\n2) Enable CDP:\n   cdp run\n3) Optionally enable per-interface:\n   interface [Interface]\n   cdp enable\n4) Exit configuration mode:\n   end"
+              },
+              {
+                "name": "Enable BPDU Guard",
+                "description": "Protect the switch against rogue bridge protocol data units.",
+                "command": "spanning-tree bpduguard enable"
+              },
+              {
+                "name": "Disable Unused Ports",
+                "description": "Shut down all unused interfaces to prevent unauthorized access.",
+                "command": "interface range [UnusedPorts]\nshutdown"
+              },
+              {
+                "name": "Enable DHCP Snooping",
+                "description": "Prevent rogue DHCP servers from assigning IP addresses.",
+                "command": "ip dhcp snooping\nip dhcp snooping vlan [VLAN_ID]"
+              },
+              {
+                "name": "Enable Dynamic ARP Inspection",
+                "description": "Prevent ARP spoofing attacks.",
+                "command": "ip arp inspection vlan [VLAN_ID]"
+              }
+            ],
+            "advanced": [
+              {
+                "name": "Enable 802.1X Authentication",
+                "description": "Use IEEE 802.1X to authenticate devices before they connect to the network.",
+                "command": "dot1x system-auth-control\ninterface [InterfaceName]\ndot1x port-control auto"
+              },
+              {
+                "name": "Implement Private VLANs",
+                "description": "Isolate switch ports while maintaining connectivity to key resources.",
+                "command": "vlan [Primary_VLAN] private-vlan primary\nvlan [Isolated_VLAN] private-vlan isolated"
+              },
+              {
+                "name": "Enable Root Guard",
+                "description": "Prevent rogue switches from becoming the STP root.",
+                "command": "spanning-tree guard root"
+              },
+              {
+                "name": "Port Security",
+                "description": "Restrict port access based on MAC address.",
+                "command": "interface [InterfaceName]\nswitchport port-security\nswitchport port-security maximum [Number]\nswitchport port-security violation restrict"
+              }
+            ]
+          }
+        }
+      },
+      "Juniper": {
+        "routers": {
+          "setup": [
+            {
+              "name": "Set Hostname",
+              "description": "Assign a unique hostname to the Juniper router for identification.",
+              "command": "set system host-name [DeviceName]"
+            },
+            {
+              "name": "Configure Interface",
+              "description": "Configure an interface with an IP address.",
+              "command": "set interfaces [InterfaceName] unit 0 family inet address [IP_Address]/[Subnet_Mask]"
+            },
+            {
+              "name": "Enable Interface",
+              "description": "Activate the interface.",
+              "command": "delete interfaces [InterfaceName] disable"
+            },
+            {
+              "name": "Configure VLAN (Layer 3 Interface)",
+              "description": "Create VLANs and assign IP addresses to VLAN interfaces.",
+              "command": "1) Create VLAN:\n   set vlans [VLAN_Name] vlan-id [VLAN_ID]\n2) Configure Interface:\n   set interfaces vlan unit [UnitNumber] family inet address [IP_Address]/[Subnet_Mask]"
+            },
+            {
+              "name": "Configure Static Routing",
+              "description": "Define a static route for routing packets to a specific network.",
+              "command": "set routing-options static route [Destination_Network] next-hop [Next_Hop_IP]"
+            },
+            {
+              "name": "Configure Default Gateway",
+              "description": "Set a default route for all traffic with no specific route.",
+              "command": "set routing-options static route 0.0.0.0/0 next-hop [Next_Hop_IP]"
+            },
+            {
+              "name": "Enable SSH",
+              "description": "Allow secure remote access to the router via SSH.",
+              "command": "set system services ssh"
+            },
+            {
+              "name": "Disable Telnet",
+              "description": "Prevent unencrypted remote access.",
+              "command": "delete system services telnet"
+            },
+            {
+              "name": "Enable NTP",
+              "description": "Synchronize time with an NTP server.",
+              "command": "set system ntp server [NTP_Server_IP]"
+            },
+            {
+              "name": "Configure DHCP Server",
+              "description": "Set up a DHCP server to dynamically assign IP addresses.",
+              "command": "1) Define Address Range:\n   set system services dhcp pool [Network_Address/Mask] address-range low [Start_IP] high [End_IP]\n2) Define Default Router:\n   set system services dhcp pool [Network_Address/Mask] default-router [Default_Router_IP]"
+            },
+            {
+              "name": "Configure SNMP",
+              "description": "Monitor network performance and detect faults using SNMP.",
+              "command": "set snmp community [CommunityName] authorization [Read-Only/Read-Write]"
+            },
+            {
+              "name": "Save Configuration",
+              "description": "Save the current configuration to ensure it's not lost after a reboot.",
+              "command": "commit"
+            }
+          ],
+          "security": {
+            "basic": [
+              {
+                "name": "Set Hostname",
+                "description": "Assign a hostname to the Juniper router.",
+                "command": "set system host-name [DeviceName]"
+              },
+              {
+                "name": "Enable SSH",
+                "description": "Enable SSH for secure remote access.",
+                "command": "set system services ssh"
+              },
+              {
+                "name": "Disable Telnet",
+                "description": "Disable Telnet to prevent unencrypted remote access.",
+                "command": "delete system services telnet"
+              },
+              {
+                "name": "Enable Syslog",
+                "description": "Configure logging for monitoring and auditing.",
+                "command": "set system syslog file messages any info"
+              }
+            ],
+            "advanced": [
+              {
+                "name": "Configure Security Policies",
+                "description": "Define rules for traffic filtering between zones.",
+                "command": "set security policies from-zone [FromZone] to-zone [ToZone] policy [PolicyName] match source-address [Source] destination-address [Destination] application [Application]\nset security policies from-zone [FromZone] to-zone [ToZone] policy [PolicyName] then [Action]"
+              },
+              {
+                "name": "Enable System Logging",
+                "description": "Enable system logging for monitoring and troubleshooting.",
+                "command": "set system syslog file messages any info"
+              },
+              {
+                "name": "Configure Interface Security",
+                "description": "Assign security zones to interfaces.",
+                "command": "set security zones security-zone [ZoneName] interfaces [InterfaceName]"
+              },
+              {
+                "name": "Enable Firewall Filters",
+                "description": "Set up packet filtering rules.",
+                "command": "set firewall family inet filter [FilterName] term [TermName] from source-address [Source] destination-address [Destination]\nset firewall family inet filter [FilterName] term [TermName] then accept"
+              },
+              {
+                "name": "Application QoS",
+                "description": "Implement Quality of Service (QoS) policies for application prioritization.",
+                "command": "set class-of-service classifiers dscp [ClassifierName] forwarding-class [ClassName] loss-priority [low|high]"
+              },
+              {
+                "name": "Advanced NAT Security",
+                "description": "Enhance NAT security with persistent NAT and filtering.",
+                "command": "set security nat source rule-set [RuleSetName] from zone [Zone] rule [RuleName] match source-address [Address]"
+              },
+              {
+                "name": "Microsegmentation (VLAN Isolation)",
+                "description": "Isolate VLANs to improve security.",
+                "command": "set vlans [VLAN_Name] isolate"
+              },
+              {
+                "name": "Multi-Factor Authentication (MFA)",
+                "description": "Enable MFA for admin users.",
+                "command": "set system authentication-order radius\nset system radius-server [IP] secret [Key]"
+              },
+              {
+                "name": "Check Open Ports",
+                "description": "Display configured firewall filters.",
+                "command": "show configuration firewall filter"
+              },
+              {
+                "name": "Failed Logins Monitoring",
+                "description": "Show failed login attempts.",
+                "command": "show system login attempts"
+              },
+              {
+                "name": "Detect Brute Force Attacks",
+                "description": "Log failed login attempts.",
+                "command": "set system syslog file login failures"
+              },
+              {
+                "name": "RBAC (Role-Based Access Control)",
+                "description": "Define user roles and access levels.",
+                "command": "set system login user [UserName] class super-user"
+              },
+              {
+                "name": "Stricter Logging",
+                "description": "Enable system-wide logging.",
+                "command": "set system syslog file messages any notice"
+              }
+            ]
+          }
+        },
+        "switches": {
+          "setup": [
+            {
+              "name": "Set Hostname",
+              "description": "Assign a unique hostname to the Juniper switch for identification.",
+              "command": "set system host-name [DeviceName]"
+            },
+            {
+              "name": "Configure VLAN",
+              "description": "Create and configure VLANs for network segmentation.",
+              "command": "1) Create VLAN:\n   set vlans [VLAN_Name] vlan-id [VLAN_ID]\n2) Assign VLAN to interface:\n   set interfaces [InterfaceName] unit 0 family ethernet-switching vlan members [VLAN_Name]"
+            },
+            {
+              "name": "Configure Trunk Ports",
+              "description": "Set up trunk ports for VLAN tagging between switches.",
+              "command": "1) Set interface mode to trunk:\n   set interfaces [InterfaceName] unit 0 family ethernet-switching port-mode trunk\n2) Allow specific VLANs (if needed):\n   set interfaces [InterfaceName] unit 0 family ethernet-switching vlan members [VLAN_Name]"
+            },
+            {
+              "name": "Set Management IP Address",
+              "description": "Assign an IP address to the switch for management access.",
+              "command": "set interfaces vlan.0 family inet address [IP_Address]/[Subnet_Mask]"
+            },
+            {
+              "name": "Enable Spanning Tree Protocol (STP)",
+              "description": "Prevent Layer 2 loops by configuring Spanning Tree Protocol.",
+              "command": "set protocols stp interface [InterfaceName]"
+            },
+            {
+              "name": "Port Security Configuration",
+              "description": "Limit the number of devices on a port and configure MAC address filtering.",
+              "command": "1) Enable port security:\n   set ethernet-switching-options secure-access-port interface [InterfaceName] allowed-mac-count [Number]\n2) Configure violation action:\n   set ethernet-switching-options secure-access-port interface [InterfaceName] violation-action [Shutdown | Restrict | Protect]"
+            },
+            {
+              "name": "Assign VLAN to Interface",
+              "description": "Assign a VLAN to a specific port for network segmentation.",
+              "command": "set interfaces [InterfaceName] unit 0 family ethernet-switching vlan members [VLAN_Name]"
+            },
+            {
+              "name": "Enable Dynamic ARP Inspection",
+              "description": "Protect against ARP spoofing attacks.",
+              "command": "set ethernet-switching-options arp-inspection vlan [VLAN_ID]"
+            },
+            {
+              "name": "Disable Unused Ports",
+              "description": "Shut down unused interfaces to enhance security.",
+              "command": "set interfaces [InterfaceName] disable"
+            },
+            {
+              "name": "Enable Storm Control",
+              "description": "Prevent excessive broadcast, multicast, or unicast traffic.",
+              "command": "set ethernet-switching-options storm-control interface [InterfaceName] bandwidth [Value]"
+            },
+            {
+              "name": "Enable SNMP",
+              "description": "Monitor network performance and detect faults using SNMP.",
+              "command": "set snmp community [CommunityName] authorization [Read-Only/Read-Write]"
+            },
+            {
+              "name": "Save Configuration",
+              "description": "Save the current configuration to ensure it's not lost after a reboot.",
+              "command": "commit"
+            }
+          ],
+          "security": {
+            "basic": [
+              {
+                "name": "Configure MAC Limiting",
+                "description": "Limit the number of MAC addresses per port to prevent MAC flooding attacks.",
+                "command": "set ethernet-switching-options secure-access-port interface [InterfaceName] allowed-mac-count [Number]"
+              },
+              {
+                "name": "Enable DHCP Snooping",
+                "description": "Prevent rogue DHCP servers from distributing IPs.",
+                "command": "set ethernet-switching-options dhcp-security group [GroupName] interface [InterfaceName]"
+              },
+              {
+                "name": "Disable Unused Ports",
+                "description": "Shut down unused interfaces to enhance security.",
+                "command": "set interfaces [InterfaceName] disable"
+              },
+              {
+                "name": "Enable Storm Control",
+                "description": "Prevent excessive broadcast, multicast, or unicast traffic.",
+                "command": "set ethernet-switching-options storm-control interface [InterfaceName] bandwidth [Value]"
+              }
+            ],
+            "advanced": [
+              {
+                "name": "Enable Dynamic ARP Inspection",
+                "description": "Protect against ARP spoofing attacks.",
+                "command": "set ethernet-switching-options arp-inspection vlan [VLAN_ID]"
+              },
+              {
+                "name": "Configure Layer 2 Firewall",
+                "description": "Filter traffic at Layer 2 to prevent unauthorized communication.",
+                "command": "set security forwarding-options family ethernet-switching filter [FilterName]"
+              },
+              {
+                "name": "Implement Private VLANs",
+                "description": "Isolate switch ports while maintaining connectivity to specific resources.",
+                "command": "set vlans [VLAN_Name] private-vlan primary"
+              }
+            ]
+          }
+        }
+      },
+      "Palo Alto": {
+        "firewalls": {
+          "setup": [
+            {
+              "name": "Set Hostname",
+              "description": "Assign a hostname to the Palo Alto firewall.",
+              "command": "set deviceconfig system hostname [DeviceName]"
+            },
+            {
+              "name": "Set Management IP Address",
+              "description": "Configure the management interface with an IP address and default gateway.",
+              "command": "set deviceconfig system ip-address [IP_Address]\nset deviceconfig system netmask [Subnet_Mask]\nset deviceconfig system default-gateway [Gateway_IP]"
+            },
+            {
+              "name": "Set DNS Servers",
+              "description": "Configure primary and secondary DNS servers.",
+              "command": "set deviceconfig system dns-setting servers primary [Primary_DNS_IP] secondary [Secondary_DNS_IP]"
+            },
+            {
+              "name": "Configure NTP Server",
+              "description": "Synchronize device time with an NTP server.",
+              "command": "set deviceconfig system ntp-servers primary-ntp-server [NTP_Server_IP] secondary-ntp-server [NTP_Server_IP]"
+            },
+            {
+              "name": "Set Admin Password",
+              "description": "Set a strong password for the admin account.",
+              "command": "set mgt-config users admin password"
+            },
+            {
+              "name": "Configure Interface Management Profile",
+              "description": "Enable services like HTTPS, SSH, or Ping on interfaces for remote management.",
+              "command": "set network interface-management-profile [ProfileName] ping yes https yes ssh yes"
+            },
+            {
+              "name": "Assign Management Profile to Interface",
+              "description": "Apply management profile to a physical interface to allow admin access.",
+              "command": "set network interface ethernet1/1 layer3 interface-management-profile [ProfileName]"
+            },
+            {
+              "name": "Create Security Zone",
+              "description": "Define a security zone for grouping interfaces with similar security policies.",
+              "command": "set zone [ZoneName] network layer3 ethernet1/1"
+            },
+            {
+              "name": "Assign Interface to Zone",
+              "description": "Assign the interface to a security zone for policy enforcement.",
+              "command": "set network interface ethernet1/1 layer3 zone [ZoneName]"
+            },
+            {
+              "name": "Create Virtual Router",
+              "description": "Create a virtual router to define routing between zones.",
+              "command": "set network virtual-router [VR_Name] interface [ethernet1/1]"
+            },
+            {
+              "name": "Add Static Route",
+              "description": "Define static routes for inter-zone traffic routing.",
+              "command": "set network virtual-router [VR_Name] routing-table ip static-route [Route_Name] destination [Network/Mask] nexthop ip-address [Next_Hop]"
+            },
+            {
+              "name": "Create Basic Security Policy",
+              "description": "Define a rule to allow traffic from one zone to another.",
+              "command": "set rulebase security rules Allow-Internet from Trust to Untrust source any destination any application any action allow"
+            },
+            {
+              "name": "Commit Changes",
+              "description": "Apply and save all configuration changes.",
+              "command": "commit"
+            },
+            {
+              "name": "Save Configuration",
+              "description": "Save the current running configuration to a file.",
+              "command": "save config to [filename.xml]"
+            }
+          ],
+          "security": {
+            "basic": [
+              {
+                "name": "Enable Management Interface Security",
+                "description": "Disable insecure management access methods.",
+                "command": "set deviceconfig system service disable-http yes"
+              },
+              {
+                "name": "Enable Secure Administrative Access",
+                "description": "Configure admin accounts with strong authentication.",
+                "command": "set mgt-config users [Username] password [Password]"
+              }
+            ],
+            "advanced": [
+              {
+                "name": "Enable Threat Prevention",
+                "description": "Apply IPS/IDS, antivirus, and anti-spyware profiles.",
+                "command": "set profiles spyware [ProfileName] rules [RuleName] action [Action]\nset profiles vulnerability [ProfileName] rules [RuleName] action [Action]"
+              },
+              {
+                "name": "Configure Zone Protection",
+                "description": "Defend against DoS and scanning attacks.",
+                "command": "set network zone [ZoneName] network layer3 protection-profile [ProfileName]"
+              },
+              {
+                "name": "Enable Decryption Policies",
+                "description": "Inspect SSL/TLS traffic for security threats.",
+                "command": "set decryption policy [PolicyName] action decrypt"
+              },
+              {
+                "name": "Cloud-Based Threat Intelligence",
+                "description": "Integrate Palo Alto firewall with cloud-based threat intelligence services.",
+                "command": "set deviceconfig system cloud-service enable yes"
+              },
+              {
+                "name": "Enable User-ID",
+                "description": "Map users to IP addresses for policy enforcement.",
+                "command": "set user-id agent [AgentName] enable yes"
+              },
+              {
+                "name": "Enable WildFire Analysis",
+                "description": "Submit unknown files for malware detection.",
+                "command": "set wildfire report enable"
+              },
+              {
+                "name": "Enable URL Filtering",
+                "description": "Restrict web access based on categories.",
+                "command": "set profiles url-filtering [ProfileName] rules [RuleName] action block"
+              },
+              {
+                "name": "Enable Log Forwarding",
+                "description": "Forward logs to a SIEM for analysis.",
+                "command": "set log-settings syslog [ServerName] address [IP] format BSD"
+              }
+            ]
+          }
+        },
+        "Panorama": {
+          "setup": [
+            {
+              "name": "Set Panorama IP",
+              "description": "Assign IP address to Panorama management interface.",
+              "command": "set deviceconfig system ip-address [IP_Address]\nset deviceconfig system netmask [Subnet_Mask]\nset deviceconfig system default-gateway [Gateway_IP]"
+            },
+            {
+              "name": "Configure DNS Settings",
+              "description": "Set primary and secondary DNS servers.",
+              "command": "set deviceconfig system dns-setting servers primary [Primary_DNS] secondary [Secondary_DNS]"
+            },
+            {
+              "name": "Configure NTP Servers",
+              "description": "Synchronize Panorama system time with an NTP server.",
+              "command": "set deviceconfig system ntp-servers primary-ntp-server [NTP_IP]"
+            },
+            {
+              "name": "Commit Changes",
+              "description": "Apply all pending configuration changes.",
+              "command": "commit"
+            },
+            {
+              "name": "Save Configuration",
+              "description": "Save the Panorama configuration to a file.",
+              "command": "save config to [filename.xml]"
+            },
+            {
+              "name": "Add Managed Firewall",
+              "description": "Register a firewall to Panorama for central management.",
+              "command": "set devices serial-number [SerialNumber] connected yes"
+            },
+            {
+              "name": "Assign Firewall to Device Group",
+              "description": "Group managed devices under a central policy structure.",
+              "command": "set device-group [GroupName] devices [SerialNumber]"
+            },
+            {
+              "name": "Create Template",
+              "description": "Create configuration templates to push to devices.",
+              "command": "set template [TemplateName]"
+            },
+            {
+              "name": "Assign Template to Firewall",
+              "description": "Bind a configuration template to a specific firewall.",
+              "command": "set template [TemplateName] devices [SerialNumber]"
+            }
+          ],
+          "security": {
+            "basic": [
+              {
+                "name": "Set Hostname",
+                "description": "Assign a hostname to the Panorama management system.",
+                "command": "set deviceconfig system hostname [DeviceName]"
+              },
+              {
+                "name": "Enable Secure Management Access",
+                "description": "Restrict Panorama access to authorized administrators.",
+                "command": "set deviceconfig system service disable-http yes"
+              },
+              {
+                "name": "Configure Admin Roles",
+                "description": "Define administrator roles with appropriate privileges.",
+                "command": "set mgt-config users [Username] role [RoleName]"
+              }
+            ],
+            "advanced": [
+              {
+                "name": "Enable Logging and Monitoring",
+                "description": "Ensure all firewall logs are centralized and monitored.",
+                "command": "set deviceconfig system log-settings syslog-server [ServerName] address [IP] format BSD"
+              },
+              {
+                "name": "Configure High Availability",
+                "description": "Enable HA for failover and redundancy.",
+                "command": "set deviceconfig high-availability enable yes"
+              },
+              {
+                "name": "Apply Security Policies Centrally",
+                "description": "Push predefined security policies to all managed firewalls.",
+                "command": "set device-group [GroupName] pre-rulebase security rules [RuleName] action allow"
+              },
+              {
+                "name": "Enable Certificate-Based Authentication",
+                "description": "Require certificates for administrator authentication.",
+                "command": "set deviceconfig system authentication-profile [ProfileName]"
+              },
+              {
+                "name": "Configure Panorama Data Redundancy",
+                "description": "Enable data replication for disaster recovery.",
+                "command": "set deviceconfig system panorama-server [PrimaryIP] secondary [SecondaryIP]"
+              },
+              {
+                "name": "Enable Auto Policy Updates",
+                "description": "Automatically update security policies from Panorama.",
+                "command": "set device-group [GroupName] policy-update enable"
+              },
+              {
+                "name": "Enable Dynamic Address Groups",
+                "description": "Use dynamic address groups for flexible security policies.",
+                "command": "set dynamic-address-group [GroupName] filter [Criteria]"
+              },
+              {
+                "name": "Enable Custom Threat Signatures",
+                "description": "Create custom signatures for detecting threats.",
+                "command": "set custom-threat-signature [SignatureName]"
+              }
+            ]
+          }
+        }
+      },
+      "Fortinet": {
+        "firewalls": {
+          "setup": [
+            {
+              "name": "Set Hostname",
+              "description": "Assign a hostname to the Fortinet device.",
+              "command": "config system global\nset hostname [DeviceName]\nend"
+            },
+            {
+              "name": "Set System Domain Name",
+              "description": "Assign a domain name for system identification and certificate generation.",
+              "command": "config system global\nset domain [DomainName]\nend"
+            },
+            {
+              "name": "Configure Management IP",
+              "description": "Assign IP address, subnet mask, and gateway for the management interface.",
+              "command": "config system interface\nedit [InterfaceName]\nset ip [IP_Address] [Subnet_Mask]\nset allowaccess ping https ssh http\nnext\nend"
+            },
+            {
+              "name": "Set Interface Description",
+              "description": "Add a description to the interface to indicate its role.",
+              "command": "config system interface\nedit [InterfaceName]\nset description [Description]\nnext\nend"
+            },
+            {
+              "name": "Set Admin Password",
+              "description": "Secure the admin account with a strong password.",
+              "command": "config system admin\nedit admin\nset password [Password]\nnext\nend"
+            },
+            {
+              "name": "Configure DNS Servers",
+              "description": "Set primary and secondary DNS servers for name resolution.",
+              "command": "config system dns\nset primary [Primary_DNS]\nset secondary [Secondary_DNS]\nend"
+            },
+            {
+              "name": "Configure NTP Server",
+              "description": "Synchronize system time with an NTP server.",
+              "command": "config system ntp\nset status enable\nset server [NTP_Server_IP]\nend"
+            },
+            {
+              "name": "Set Default Route",
+              "description": "Set a default route for internet-bound traffic.",
+              "command": "config router static\nedit 0\nset device [WAN_Interface]\nset gateway [Default_Gateway_IP]\nnext\nend"
+            },
+            {
+              "name": "Enable GUI Access",
+              "description": "Ensure GUI (HTTPS/HTTP) access is allowed for management.",
+              "command": "config system interface\nedit [InterfaceName]\nset allowaccess https http\nnext\nend"
+            },
+            {
+              "name": "Enable VDOMs (Optional)",
+              "description": "Enable Virtual Domains for multi-tenancy and administrative separation.",
+              "command": "config system global\nset vdom-admin enable\nend"
+            },
+            {
+              "name": "Create Admin Profile",
+              "description": "Create a role-based profile to control admin access permissions.",
+              "command": "config system accprofile\nedit [ProfileName]\nset secfabgrp read-write\nset sysgrp read-write\nnext\nend"
+            },
+            {
+              "name": "Save Configuration",
+              "description": "Save current configuration to persist across reboots.",
+              "command": "execute backup config flash"
+            }
+          ],
+          "security": {
+            "basic": [
+              {
+                "name": "Disable Unused Services",
+                "description": "Limit services to reduce attack vectors.",
+                "command": "config system global\nset admin-https-ssl-versions tlsv1-2 tlsv1-3\nend"
+              },
+              {
+                "name": "Enable Logging and Monitoring",
+                "description": "Configure logging for security visibility.",
+                "command": "config log setting\nset status enable\nend"
+              }
+            ],
+            "advanced": [
+              {
+                "name": "Enable Intrusion Prevention",
+                "description": "Enable IPS to detect and block threats.",
+                "command": "config ips sensor\nedit [SensorName]\nset action block\nnext\nend"
+              },
+              {
+                "name": "Enable Web Filtering",
+                "description": "Control access to websites based on policies.",
+                "command": "config webfilter profile\nedit [ProfileName]\nset ftgd-wf enable\nnext\nend"
+              },
+              {
+                "name": "Enable Botnet Protection",
+                "description": "Block connections to known malicious domains.",
+                "command": "config system global\nset botnet enable\nend"
+              },
+              {
+                "name": "Advanced SD-WAN Security Policies",
+                "description": "Enhance SD-WAN security with application-based routing and segmentation.",
+                "command": "config system sdwan\nedit [PolicyName]\nset internet-service enable\nnext\nend"
+              },
+              {
+                "name": "Microsegmentation (VLAN Isolation)",
+                "description": "Restrict VLANs to limit traffic access.",
+                "command": "config system interface\nedit [InterfaceName]\nset intra-switch-policy deny\nnext\nend"
+              },
+              {
+                "name": "Multi-Factor Authentication (MFA)",
+                "description": "Enable MFA for admin logins.",
+                "command": "config system admin\nedit admin\nset two-factor enable\nnext\nend"
+              },
+              {
+                "name": "Check Open Ports",
+                "description": "Display listening services.",
+                "command": "diagnose sys top | grep LISTEN"
+              },
+              {
+                "name": "Failed Logins Monitoring",
+                "description": "Monitor failed authentication attempts.",
+                "command": "execute log display | grep failed"
+              },
+              {
+                "name": "Detect Brute Force Attacks",
+                "description": "Enable logging for intrusion detection.",
+                "command": "config log setting\nset status enable\nend"
+              },
+              {
+                "name": "RBAC (Role-Based Access Control)",
+                "description": "Assign admin roles and profiles.",
+                "command": "config system admin\nedit [Admin]\nset accprofile [Profile]\nnext\nend"
+              },
+              {
+                "name": "Stricter Logging",
+                "description": "Enable logging and monitoring.",
+                "command": "config log setting\nset status enable\nend"
+              }
+            ]
+          }
+        },
+        "UTM Module": {
+          "setup": [
+            {
+              "name": "Enable FortiGuard Services",
+              "description": "Activate FortiGuard services for UTM database updates.",
+              "command": "config system fortiguard\nset fortiguard-anycast enable\nset protocol udp\nend"
+            },
+            {
+              "name": "Enable Automatic Signature Updates",
+              "description": "Automatically update antivirus, IPS, and web filter signatures.",
+              "command": "config system autoupdate schedule\nset status enable\nset frequency daily\nend"
+            },
+            {
+              "name": "Verify UTM Licenses",
+              "description": "Check that UTM features are licensed and enabled.",
+              "command": "get system status | grep Contract"
+            },
+            {
+              "name": "Enable Logging for UTM Features",
+              "description": "Ensure threat-related events are logged for visibility.",
+              "command": "config log setting\nset utm enable\nend"
+            },
+            {
+              "name": "Create Security Policy with UTM Inspection",
+              "description": "Apply antivirus, web filtering, and application control to traffic.",
+              "command": "config firewall policy\nedit [Policy_ID]\nset utm-status enable\nset av-profile [ProfileName]\nset webfilter-profile [ProfileName]\nset application-list [ProfileName]\nnext\nend"
+            }
+          ],
+          "security": {
+            "basic": [
+              {
+                "name": "Enable Antivirus Scanning",
+                "description": "Scan and block malware in network traffic.",
+                "command": "config antivirus profile\nedit [ProfileName]\nset scan-mode quick\nnext\nend"
+              },
+              {
+                "name": "Enable Email Security",
+                "description": "Prevent phishing and spam emails.",
+                "command": "config emailfilter profile\nedit [ProfileName]\nset spam-filter enable\nnext\nend"
+              },
+              {
+                "name": "Enable Application Control",
+                "description": "Regulate application usage for security.",
+                "command": "config application list\nedit [ProfileName]\nset app-control enable\nnext\nend"
+              }
+            ],
+            "advanced": [
+              {
+                "name": "Enable Web Filtering",
+                "description": "Control access to websites based on policies.",
+                "command": "config webfilter profile\nedit [ProfileName]\nset ftgd-wf enable\nnext\nend"
+              },
+              {
+                "name": "Enable Data Leak Prevention (DLP)",
+                "description": "Prevent sensitive information from leaving the network.",
+                "command": "config dlp sensor\nedit [SensorName]\nconfig filter\nedit 1\nset name [FilterName]\nset protocol http smtp pop3 imap ftp\nnext\nend\nnext\nend"
+              },
+              {
+                "name": "Enable DNS Filtering",
+                "description": "Block DNS queries to malicious or unwanted domains.",
+                "command": "config dnsfilter profile\nedit [ProfileName]\nset domain-filter enable\nnext\nend"
+              },
+              {
+                "name": "Enable Mobile Malware Protection",
+                "description": "Detect malicious behavior in mobile traffic patterns.",
+                "command": "config antivirus profile\nedit [ProfileName]\nset mobile-malware-db enable\nnext\nend"
+              },
+              {
+                "name": "Enable Email Content Filtering",
+                "description": "Inspect email messages for forbidden content or file types.",
+                "command": "config emailfilter profile\nedit [ProfileName]\nconfig file-filter\nedit 1\nset pattern .exe\nnext\nend\nnext\nend"
+              },
+              {
+                "name": "Enable Safe Search",
+                "description": "Force Safe Search on search engines to restrict explicit results.",
+                "command": "config webfilter profile\nedit [ProfileName]\nset safe-search enable\nnext\nend"
+              },
+              {
+                "name": "Enable SSL Inspection",
+                "description": "Inspect encrypted traffic for threats using deep SSL inspection.",
+                "command": "config firewall ssl-ssh-profile\nedit [ProfileName]\nset inspect-all enable\nnext\nend"
+              }
+            ]
+          }
+        }
+      },
+      "F5": {
+        "adc": {
+          "setup": [
+            {
+              "name": "Set Hostname",
+              "description": "Assign a hostname to the F5 ADC device.",
+              "command": "tmsh modify sys global-settings hostname [DeviceName]"
+            },
+            {
+              "name": "Configure Management IP",
+              "description": "Set the IP address, netmask, and gateway for the management interface.",
+              "command": "tmsh modify sys management-ip [IP_Address]/[Subnet_Mask] default-gateway [Gateway_IP]"
+            },
+            {
+              "name": "Configure DNS Servers",
+              "description": "Set DNS servers for hostname resolution.",
+              "command": "tmsh modify sys dns name-servers add { [Primary_DNS] [Secondary_DNS] }"
+            },
+            {
+              "name": "Configure NTP Servers",
+              "description": "Set NTP servers for time synchronization.",
+              "command": "tmsh modify sys ntp servers add { [NTP_Server_IP] }"
+            },
+            {
+              "name": "Configure Time Zone",
+              "description": "Set the time zone for system logs and time-sensitive processes.",
+              "command": "tmsh modify sys ntp timezone [TimeZone]"
+            },
+            {
+              "name": "Set Admin Password",
+              "description": "Set a secure password for the admin account.",
+              "command": "tmsh modify auth user admin password [Password]"
+            },
+            {
+              "name": "Enable SSH Access",
+              "description": "Enable SSH service for CLI-based remote management.",
+              "command": "tmsh modify sys sshd allow replace-all-with { [Trusted_IP/Mask] }"
+            },
+            {
+              "name": "Enable HTTPS Access",
+              "description": "Enable web-based GUI management and restrict to specific IPs.",
+              "command": "tmsh modify sys httpd allow replace-all-with { [Trusted_IP] }"
+            },
+            {
+              "name": "License the System",
+              "description": "Apply the license key and activate the system.",
+              "command": "tmsh install sys license registration-key [License_Key]"
+            },
+            {
+              "name": "Provision Modules",
+              "description": "Allocate system resources to modules like LTM or ASM.",
+              "command": "tmsh modify sys provision ltm level nominal"
+            },
+            {
+              "name": "Save Configuration",
+              "description": "Save the configuration to ensure it persists after reboot.",
+              "command": "tmsh save sys config"
+            }
+          ],
+          "security": {
+            "basic": [
+              {
+                "name": "Enable Secure Management",
+                "description": "Restrict management access to specific IPs.",
+                "command": "tmsh modify sys httpd allow replace-all-with { [AllowedIP] }"
+              },
+              {
+                "name": "Enable SSH Key Authentication",
+                "description": "Secure SSH access with key-based authentication.",
+                "command": "tmsh modify sys sshd allow replace-all-with { [AllowedIP/Netmask] }"
+              },
+              {
+                "name": "Enable Logging and Monitoring",
+                "description": "Ensure logs are centralized and monitored.",
+                "command": "tmsh modify sys log-config destination remote-syslog name [LogServer]"
+              }
+            ],
+            "advanced": [
+              {
+                "name": "Enable SYN Cookie Protection",
+                "description": "Mitigate SYN flood attacks.",
+                "command": "tmsh modify /ltm global-settings dos-attack vector add { syn-flood { enabled yes } }"
+              },
+              {
+                "name": "Enable Web Application Firewall",
+                "description": "Protect web applications from attacks.",
+                "command": "tmsh create security policy [PolicyName]"
+              },
+              {
+                "name": "Enable DDoS Mitigation",
+                "description": "Detect and mitigate volumetric attacks.",
+                "command": "tmsh create security dos-profile [ProfileName]"
+              },
+              {
+                "name": "Enhanced Bot Protection with Behavioral Analysis",
+                "description": "Mitigate bot attacks using behavioral analytics.",
+                "command": "tmsh create security bot-defense profile [ProfileName]"
+              },
+              {
+                "name": "Enable Advanced Load Balancing",
+                "description": "Optimize traffic distribution.",
+                "command": "tmsh modify ltm pool [PoolName] load-balancing-mode least-connections"
+              }
+            ]
+          }
+        },
+        "LTM Module": {
+          "setup": [
+            {
+              "name": "Create a Virtual Server",
+              "description": "Define a virtual server to handle client traffic.",
+              "command": "tmsh create ltm virtual [VS_Name] destination [IP]:[Port] ip-protocol tcp"
+            },
+            {
+              "name": "Create a Pool",
+              "description": "Group backend servers (nodes) for load balancing.",
+              "command": "tmsh create ltm pool [Pool_Name] members add { [Server1_IP]:[Port] [Server2_IP]:[Port] }"
+            },
+            {
+              "name": "Create a Node",
+              "description": "Define individual backend servers (nodes).",
+              "command": "tmsh create ltm node [Node_Name] address [Node_IP]"
+            },
+            {
+              "name": "Assign Pool to Virtual Server",
+              "description": "Link the virtual server to a pool for traffic distribution.",
+              "command": "tmsh modify ltm virtual [VS_Name] pool [Pool_Name]"
+            },
+            {
+              "name": "Create Health Monitor",
+              "description": "Check availability of backend servers.",
+              "command": "tmsh create ltm monitor http [MonitorName] interval 5 timeout 16 send 'GET /\\r\\n' recv '200 OK'"
+            },
+            {
+              "name": "Assign Monitor to Pool",
+              "description": "Attach the health monitor to the pool.",
+              "command": "tmsh modify ltm pool [Pool_Name] monitor [MonitorName]"
+            },
+            {
+              "name": "Create HTTP Profile",
+              "description": "Customize how HTTP traffic is handled.",
+              "command": "tmsh create ltm profile http [ProfileName]"
+            },
+            {
+              "name": "Assign HTTP Profile to Virtual Server",
+              "description": "Apply the HTTP profile to a virtual server.",
+              "command": "tmsh modify ltm virtual [VS_Name] profiles add { [ProfileName] }"
+            },
+            {
+              "name": "Configure SNAT Auto-Map",
+              "description": "Enable source NAT for proper routing to servers.",
+              "command": "tmsh modify ltm virtual [VS_Name] source-address-translation { type automap }"
+            },
+            {
+              "name": "Save Configuration",
+              "description": "Save current configuration to disk.",
+              "command": "tmsh save sys config"
+            }
+          ],
+          "security": {
+            "basic": [
+              {
+                "name": "Enable HTTPS for Management",
+                "description": "Secure GUI access with HTTPS.",
+                "command": "tmsh modify sys httpd ssl-certificate [CertName]"
+              },
+              {
+                "name": "Configure Admin Password",
+                "description": "Set a strong password for admin login.",
+                "command": "tmsh modify auth user admin password [Password]"
+              },
+              {
+                "name": "Restrict Management IPs",
+                "description": "Limit access to the management interface by IP.",
+                "command": "tmsh modify sys sshd allow replace-all-with { [Trusted_IPs] }"
+              },
+              {
+                "name": "Enable Logging",
+                "description": "Enable event and access logging.",
+                "command": "tmsh modify sys syslog include { [LogSettings] }"
+              },
+              {
+                "name": "Create Default Firewall Rules",
+                "description": "Block all and allow specific traffic as needed.",
+                "command": "tmsh create security firewall rule-list [RuleList] rules add { [RuleName] { action accept source { [SourceIP] } destination { [DestIP] } } }"
+              }
+            ],
+            "advanced": [
+              {
+                "name": "Enable SSL Offloading",
+                "description": "Offload SSL processing to reduce server load.",
+                "command": "tmsh create ltm profile client-ssl [ProfileName]"
+              },
+              {
+                "name": "Implement iRules for Traffic Filtering",
+                "description": "Apply custom rules for traffic manipulation.",
+                "command": "tmsh create ltm rule [RuleName]"
+              },
+              {
+                "name": "Enable Application Security Manager (ASM)",
+                "description": "Implement security policies for applications.",
+                "command": "tmsh create security policy asm-policy [PolicyName]"
+              },
+              {
+                "name": "Configure Network Firewall Policies",
+                "description": "Create rules to filter network traffic.",
+                "command": "tmsh create security firewall rule [RuleName]"
+              },
+              {
+                "name": "Enable Secure Cookie Handling",
+                "description": "Ensure secure cookie attributes to prevent session hijacking.",
+                "command": "tmsh modify ltm profile http [ProfileName] insert-xforwarded-for enabled secure-cookie enabled"
+              },
+              {
+                "name": "Enable HTTP Strict Transport Security (HSTS)",
+                "description": "Force secure HTTPS connections.",
+                "command": "tmsh modify ltm profile http [ProfileName] hsts enabled max-age 31536000"
+              },
+              {
+                "name": "Enable Geolocation Blocking",
+                "description": "Block or allow traffic based on geographic regions.",
+                "command": "tmsh modify security bot-defense profile [ProfileName] geo-blocking enabled"
+              },
+              {
+                "name": "Enable API Security",
+                "description": "Protect APIs from common attacks using security policies.",
+                "command": "tmsh create security policy api-protection [PolicyName]"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
