@@ -74,6 +74,14 @@ def query_faiss():
     user_id = data.get("user_id", "default_user")
     preview_mode = "preview" in user_query or "impact" in user_query
 
+    irrelevant_keywords = [
+    "joke", "weather", "powerpoint", "excel", "word", "story", "open", "time", "date", 
+    "calendar", "meme", "music", "restaurant", "movie", "tell me", "funny", "game"
+    ]
+
+    if any(word in user_query for word in irrelevant_keywords):
+        return jsonify({"results": ["⚠️ Sorry, I can only assist you with network setup and security topics related to setting up or securing any of the devices across the 5 platforms"]})
+
     if any(greet in user_query for greet in ["hello", "hi", "hey"]):
         return jsonify({"results": ["Hello! How can I assist you with network setup or security today?"]})
 
